@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+<!--
+  Project protected under LICENSE.txt
+  Developed by Ahmed Abdo
+  All rights reserved.
+  Unauthorized use, reproduction, or distribution is prohibited.
+-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle"></title>
+
+  <!-- ========== Dynamic Favicon (يُحدَّث من lesson.js تلقائياً) ========== -->
+  <link id="dynamicFavicon" rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <link id="dynamicAppleIcon" rel="apple-touch-icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+
+  <!-- ========== Theme Color (شريط المتصفح في الموبايل) ========== -->
+  <meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f0c29" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- ========== Open Graph / Social Sharing ========== -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="ogTitle" content="">
+  <meta property="og:description" id="ogDescription" content="Interactive English Lesson· 英语互动课程">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitterTitle" content="">
+  <meta name="twitter:description" content="Interactive English Lesson · 英语互动课程">
+  <meta name="description" content="Interactive English Lesson · 英语互动课程">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <!--  3 — Metadata Signature (JSON-LD + meta)                      -->
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <meta name="author" content="Ahmed Abdo">
+  <meta name="copyright" content="© 2026 Ahmed Abdo. All rights reserved.">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Interactive English Lesson · 英语互动课程",
+      "author": { "@type": "Person", "name": "Ahmed Abdo" },
+      "copyrightNotice": "© Ahmed Abdo",
+      "license": "All Rights Reserved"
+    }
+  </script>
+</head>
+
+<script>
+  setTimeout(function () {
+    var s = document.getElementById('splashScreen');
+    if (s && s.parentNode) {
+      s.style.opacity = '0';
+      s.style.transition = 'opacity 0.7s';
+      setTimeout(function () { if (s.parentNode) s.remove(); }, 700);
+    }
+  }, 4000);
+</script>
+
+<body>
+
+  <!-- ================= SPLASH SCREEN ================= -->
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-content">
+      <div class="splash-icon" id="splashIcon">📚</div>
+      <div class="splash-title" id="splashTitle">Loading...</div>
+      <div class="splash-subtitle" id="splashSubtitle">加载中...</div>
+      <div class="splash-loader">
+        <div class="splash-loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FIXED TOP BAR ================= -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo" id="brandIcon"></div>
+        <div class="brand-title">
+          <span id="brandTitle"></span>
+        </div>
+      </div>
+
+      <div class="current-section-title" id="currentSectionTitle" style="display: none;">🎬 Introduction</div>
+
+      <div id="mobileCenter"
+        style="display:none;flex:1;justify-content:center;align-items:center;gap:5px;font-weight:700;color:var(--primary);font-size:15px;">
+        <span id="tbIcon">🎬</span>
+        <span id="tbName">Introduction</span>
+      </div>
+
+      <div class="stepper-desktop" id="stepperDesktop">
+        <div class="step-item current" role="button" tabindex="0" onclick="goToStage(0)"
+          aria-label="Introduction - Stage 1 of 9">
+          <div class="step-dot">🎬</div>
+          <div class="step-name">Introduction</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(1)"
+          aria-label="Thinking - Stage 2 of 9">
+          <div class="step-dot">💡</div>
+          <div class="step-name">Thinking</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(2)"
+          aria-label="Vocabulary - Stage 3 of 9">
+          <div class="step-dot">📚</div>
+          <div class="step-name">Vocabulary</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(3)"
+          aria-label="Reading - Stage 4 of 9">
+          <div class="step-dot">📖</div>
+          <div class="step-name">Reading</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(4)"
+          aria-label="Explanation - Stage 5 of 9">
+          <div class="step-dot">🔍</div>
+          <div class="step-name">Explanation</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(5)"
+          aria-label="Grammar - Stage 6 of 9">
+          <div class="step-dot">🔤</div>
+          <div class="step-name">Grammar</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(6)"
+          aria-label="Exercises - Stage 7 of 9">
+          <div class="step-dot">✏️</div>
+          <div class="step-name">Exercises</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(7)"
+          aria-label="Speaking - Stage 8 of 9">
+          <div class="step-dot">🗣️</div>
+          <div class="step-name">Speaking</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item upcoming" role="button" tabindex="0" onclick="goToStage(8)"
+          aria-label="Review - Stage 9 of 9">
+          <div class="step-dot">🧠</div>
+          <div class="step-name">Review</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="settings-btn" id="openSettingsBtn" aria-label="Settings"
+          onclick="window.openSettingsModal()">⚙️</button>
+        <div class="desktop-settings">
+
+          <div class="ds-group">
+            <button id="translateToggleBtn" class="ds-btn" onclick="TranslationSystem.toggle()">🌐</button>
+          </div>
+
+          <div class="ds-group">
+            <button id="autoFocusToggleBtn" class="ds-btn af-btn active" onclick="AutoFocus.toggleEnabled()"
+              aria-label="Enable/Disable Auto Focus" title="Auto Focus · 自动专注">🎯</button>
+          </div>
+
+          <div class="ds-group">
+            <button class="ds-btn" onclick="changeFont('en',-2)">−</button>
+            <span class="ds-label">En</span>
+            <button class="ds-btn" onclick="changeFont('en',2)">+</button>
+          </div>
+
+          <div class="ds-group">
+            <button class="ds-btn" onclick="changeFont('zh',-2)">−</button>
+            <span class="ds-label">中</span>
+            <button class="ds-btn" onclick="changeFont('zh',2)">+</button>
+          </div>
+
+          <div class="ds-group">
+            <button id="themeToggleBtn" class="ds-btn" onclick="ThemeSystem.toggle()">🌙</button>
+          </div>
+
+          <div class="ds-group">
+            <button id="teacherToolsBtn" class="ds-btn tt-topbar-btn" onclick="TeacherTools.togglePanel()"
+              aria-label="Teacher Tools" title="Teacher Tools">🎓</button>
+            <span class="answers-hidden-badge" id="answersHiddenBadge" title="Answers Hidden · 答案已隐藏">🙈</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="tbDots" style="display:none;justify-content:center;gap:7px;padding:3px 0 5px;width:100%;"></div>
+  </header>
+
+  <div class="stepper-wrap" id="stepperWrap" role="navigation" aria-label="Lesson Stages · 课程阶段" style="display: none;">
+
+    <div class="stepper-mobile" id="stepperMobile">
+      <div class="stepper-mobile-main">
+        <button class="step-arrow step-arrow-prev" id="mobilePrevBtn" onclick="goToStage(currentStageIndex - 1)"
+          aria-label="Previous Stage">←</button>
+        <div class="mobile-stage-info">
+          <span class="mobile-stage-icon" id="mobileStageIcon">🎬</span>
+          <span class="mobile-stage-name" id="mobileStageName">Introduction</span>
+        </div>
+        <button class="step-arrow step-arrow-next" id="mobileNextBtn" onclick="goToStage(currentStageIndex + 1)"
+          aria-label="Next Stage">→</button>
+      </div>
+      <div class="mobile-stage-dots" id="mobileDotsContainer">
+        <div class="mobile-dot current" role="button" tabindex="0" onclick="goToStage(0)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(1)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(2)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(3)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(4)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(5)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(6)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(7)"></div>
+        <div class="mobile-dot" role="button" tabindex="0" onclick="goToStage(8)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <main>
+
+    <!-- ========== 1. HOOK ========== -->
+    <section class="section" id="hook" data-stage-name="Introduction" data-stage-icon="🎬">
+      <div class="hero">
+        <div class="hero-emojis" id="hookEmojis"></div>
+        <h1 class="en-text" id="hookTitle" style="font-size:48px;color:#fff"></h1>
+        <p class="hero-sub" id="hookSubtitle" dir="ltr"></p>
+        <div class="hero-tagline" id="hookTagline"></div>
+      </div>
+
+      <div class="compare-grid" id="compareGrid"></div>
+    </section>
+
+    <!-- ========== 2. THINKING QUESTIONS ========== -->
+    <section class="section" id="thinking" data-stage-name="Thinking" data-stage-icon="💡">
+      <div class="section-header">
+        <div class="section-icon">💡</div>
+        <div>
+          <div class="section-title">Thinking Questions</div>
+          <div class="section-subtitle">预读思考问题</div>
+        </div>
+      </div>
+
+      <div class="q-grid" id="thinkingGrid"></div>
+      </div>
+    </section>
+
+    <!-- ========== 5. VOCABULARY ========== -->
+    <section class="section" id="vocab" data-stage-name="Vocabulary" data-stage-icon="📚">
+      <div class="section-header">
+        <div class="section-icon">📚</div>
+        <div>
+          <div class="section-title">Vocabulary</div>
+          <div class="section-subtitle">词汇 — 点击卡片显示翻译</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <!-- ================= GLOBAL VOCAB AUDIO PLAYER (isolated) ================= -->
+        <div id="vocabAudioPlayer" dir="ltr" role="region" aria-label="Vocabulary Player">
+          <div class="vap-top">
+            <div class="vap-controls">
+              <button type="button" class="vap-btn vap-btn-play" id="vapPlayBtn" aria-label="Play"></button>
+              <button type="button" class="vap-btn vap-btn-stop" id="vapStopBtn" aria-label="Stop">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="vap-meta">
+              <div class="vap-title">
+                <span class="vap-title-ar">Vocabulary</span>
+                <span class="vap-title-zh">词汇播放</span>
+              </div>
+              <div class="vap-counter">
+                <span id="vapCurIdx">0</span><span class="vap-sep">/</span><span id="vapTotal">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="vap-bottom">
+            <span class="vap-time" id="vapCurTime">0:00</span>
+            <input type="range" class="vap-slider" id="vapSlider" min="0" max="0" step="1" value="0"
+              aria-label="Playback progress">
+            <span class="vap-time vap-time-total" id="vapTotalTime">0:00</span>
+          </div>
+        </div>
+        <!-- ================= /GLOBAL VOCAB AUDIO PLAYER ================= -->
+
+        <button class="btn btn-primary reveal-all-btn" onclick="revealAllVocab()">🔓 Reveal All</button>
+        <div class="vocab-grid" id="vocabGrid">
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. READING ========== -->
+    <section class="section" id="reading" data-stage-name="Reading" data-stage-icon="📖">
+      <div class="section-header">
+        <div class="section-icon">📖</div>
+        <div>
+          <div class="section-title">Dialogue — Look, Listen & Repeat</div>
+          <div class="section-subtitle">第一对话 · 看 · 听 · 重复</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="reveal-sticky">
+          <div class="reveal-btns">
+            <button class="btn btn-primary" onclick="revealAllDialogue()">🔓 Reveal All</button>
+            <button class="btn btn-ghost" onclick="resetDialogue()">🔄 Reset</button>
+            <button class="btn btn-ghost" onclick="revealNextLine()">➡️ Next Line</button>
+            <button class="btn btn-ghost" id="playDialogueBtn" onclick="playRevealedDialogue()">🔊 Listen</button>
+          </div>
+        </div>
+
+        <div class="dialogue-container" style="margin-top:20px">
+          <div id="dialogueScenesContainer">
+          </div>
+
+          <div class="dialogue-box" id="dialogueBox">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4. DEEP EXPLANATION ========== -->
+    <section class="section" id="explain" data-stage-name="Explanation" data-stage-icon="🔍">
+      <div class="section-header">
+        <div class="section-icon">🔍</div>
+        <div>
+          <div class="section-title">Detailed Explanation</div>
+          <div class="section-subtitle">逐句详细讲解</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="explainContainer"></div>
+      </div>
+    </section>
+
+
+    <!-- ========== 6. GRAMMAR ========== -->
+    <section class="section" id="grammar" data-stage-name="Grammar" data-stage-icon="🔤">
+      <div class="section-header">
+        <div class="section-icon">🔤</div>
+        <div>
+          <div class="section-title" id="grammarTitle"></div>
+          <div class="section-subtitle" id="grammarSubtitle"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="grammarContainer"></div>
+      </div>
+    </section>
+
+    <!-- ========== 7. EXERCISES (MASSIVE) ========== -->
+    <section class="section" id="exercises" data-stage-name="Exercises" data-stage-icon="✏️">
+      <div class="section-header">
+        <div class="section-icon">✏️</div>
+        <div>
+          <div class="section-title" id="exercisesTitle"></div>
+          <div class="section-subtitle" id="exercisesSubtitle"></div>
+        </div>
+      </div>
+      <div id="exercisesContainer"></div>
+    </section>
+
+    <!-- ========== 8. SPEAKING ========== -->
+    <section class="section" id="speaking" data-stage-name="Speaking" data-stage-icon="🗣️">
+      <div class="section-header">
+        <div class="section-icon">🗣️</div>
+        <div>
+          <div class="section-title">Speaking · 3 Levels</div>
+          <div class="section-subtitle">口语练习 — 3个级别</div>
+        </div>
+      </div>
+
+      <div id="speakingContainer"></div>
+
+    </section>
+
+    <!-- ========== 9. REVIEW ========== -->
+    <section class="section" id="review" data-stage-name="Review" data-stage-icon="🧠">
+      <div class="section-header">
+        <div class="section-icon">🧠</div>
+        <div>
+          <div class="section-title">Review & Score</div>
+          <div class="section-subtitle">复习与得分</div>
+        </div>
+      </div>
+
+      <div class="score-hero">
+        <div class="score-circle" id="scoreCircle">0</div>
+        <div class="stars" id="starsDisplay">☆☆☆☆☆</div>
+        <h2 id="scoreTitle">Start!</h2>
+        <p id="scoreMsg">Calculate your score</p>
+        <button class="btn" style="background:#fff;color:var(--primary);margin-top:20px" onclick="calcScore()">🎯
+          Calculate My Score</button>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3 style="margin-bottom:14px;font-size:22px;font-family:'Poppins',sans-serif">💭 Reflection</h3>
+        <div style="display:grid;gap:12px">
+          <div class="q-card" style="cursor:default">
+            <span class="q-emoji">✅</span>
+            <div class="en-text" style="font-size:20px">What did you learn today?</div>
+            <div class="zh-text">你今天学到了什么？</div>
+            <textarea
+              style="width:100%;margin-top:10px;padding:12px;border-radius:10px;border:2px solid rgba(102,126,234,.2);background:transparent;color:var(--text);font-family:'Inter',sans-serif;font-size:16px"
+              rows="2" placeholder="Write here... · 在这里写..."></textarea>
+          </div>
+          <div class="q-card" style="cursor:default">
+            <span class="q-emoji">⭐</span>
+            <div class="en-text" style="font-size:20px">Which exercise was most fun?</div>
+            <div class="zh-text">哪个练习最有趣？</div>
+          </div>
+          <div class="q-card" style="cursor:default">
+            <span class="q-emoji">🎯</span>
+            <div class="en-text" style="font-size:20px">What will you practice next?</div>
+            <div class="zh-text">接下来你会练习什么？</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card"
+        style="margin-top:24px;text-align:center;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff">
+        <div style="font-size:60px">🎉</div>
+        <h2 class="en-text" style="font-size:32px;margin:10px 0;color:#fff">Well Done!</h2>
+        <p class="zh-text show" style="color:rgba(255,255,255,.9);font-size:20px">做得好！你已经完成了这节课。继续学习英语吧！</p>
+        <p class="en-text" style="margin-top:6px;opacity:.95;font-size:18px;color:#fff">You have completed the lesson.
+          Keep learning English!</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" style="display:none; position:fixed; 
+    top:0; left:0; width:100%; height:100%; z-index:999999; 
+    background:rgba(0,0,0,0.5); justify-content:center; 
+    align-items:center;" onclick="if(event.target===this)closeSettingsModal()">
+
+    <div style="background:#fff; border-radius:16px; width:90%; 
+      max-width:380px; max-height:85vh; overflow-y:auto; 
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);" id="settingsModalContent">
+
+      <!-- Header -->
+      <div style="display:flex; justify-content:space-between; 
+        align-items:center; padding:20px 24px; 
+        border-bottom:1px solid #eee; position:sticky; top:0; 
+        background:#fff; z-index:1;">
+        <div>
+          <div class="settings-main-title" style="font-size:20px; font-weight:700; 
+            color:#1a1a2e;">⚙️ Settings</div>
+          <div class="settings-sub" style="font-size:12px; color:#888;">设置</div>
+        </div>
+        <button onclick="closeSettingsModal()" style="width:36px; height:36px; border-radius:50%; 
+          border:none; background:rgba(102,126,234,0.1); 
+          color:#667eea; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+
+      <!-- Content -->
+      <div style="padding:16px 20px;">
+
+        <!-- Display Section -->
+        <div style="margin-bottom:24px; padding-bottom:16px; 
+          border-bottom:1px solid #f0f0f0;">
+          <h3 style="font-size:14px; font-weight:600; 
+            color:#667eea; margin:0 0 12px;">🎨 Display</h3>
+
+          <div style="display:flex; justify-content:space-between; 
+            align-items:center; padding:12px 8px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">🌙</span>
+              <div>
+                <div class="settings-label" style="font-size:14px; font-weight:600;">Dark Mode</div>
+                <div class="settings-sub" style="font-size:11px; color:#888;">夜间模式</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="settingsThemeToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; 
+            align-items:center; padding:12px 8px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">🎯</span>
+              <div>
+                <div class="settings-label" style="font-size:14px; font-weight:600;">Focus Mode</div>
+                <div class="settings-sub" style="font-size:11px; color:#888;">专注模式 · Blurs distant sections</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="settingsFocusToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; 
+            align-items:center; padding:12px 8px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">⏱️</span>
+              <div>
+                <div class="settings-label" style="font-size:14px; font-weight:600;">Auto Focus</div>
+                <div class="settings-sub" style="font-size:11px; color:#888;">自动专注 · After 30s of inactivity</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="settingsAutoFocusToggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; 
+            align-items:center; padding:12px 8px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:22px;">🌍</span>
+              <div>
+                <div class="settings-label" style="font-size:14px; font-weight:600;">Chinese Translation</div>
+                <div class="settings-sub" style="font-size:11px; color:#888;">中文翻译</div>
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="settingsTransToggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Arabic Font -->
+        <div style="margin-bottom:24px; padding-bottom:16px; 
+          border-bottom:1px solid #f0f0f0;">
+          <h3 style="font-size:14px; font-weight:600; 
+            color:#667eea; margin:0 0 12px;">🔤 English Font Size</h3>
+          <div style="display:flex; gap:12px; align-items:center; 
+            padding:8px; background:rgba(102,126,234,0.05); 
+            border-radius:12px;">
+            <button id="enFontDecrease" style="width:38px; 
+              height:38px; border-radius:50%; border:none; 
+              background:#fff; color:#667eea; font-size:20px; 
+              font-weight:700; cursor:pointer; 
+              box-shadow:0 2px 8px rgba(102,126,234,0.15);">−</button>
+            <div class="en-preview" style="flex:1; text-align:center; 
+              font-weight:600; color:#1a1a2e; font-size:22px;">ABC</div>
+            <button id="enFontIncrease" style="width:38px; 
+              height:38px; border-radius:50%; border:none; 
+              background:#fff; color:#667eea; font-size:20px; 
+              font-weight:700; cursor:pointer; 
+              box-shadow:0 2px 8px rgba(102,126,234,0.15);">+</button>
+          </div>
+        </div>
+
+        <!-- Chinese Font -->
+        <div>
+          <h3 style="font-size:14px; font-weight:600; 
+            color:#667eea; margin:0 0 12px;">中 Chinese Font Size</h3>
+          <div style="display:flex; gap:12px; align-items:center; 
+            padding:8px; background:rgba(102,126,234,0.05); 
+            border-radius:12px;">
+            <button id="cnFontDecrease" style="width:38px; 
+              height:38px; border-radius:50%; border:none; 
+              background:#fff; color:#667eea; font-size:20px; 
+              font-weight:700; cursor:pointer; 
+              box-shadow:0 2px 8px rgba(102,126,234,0.15);">−</button>
+            <div class="cn-preview" style="flex:1; text-align:center; 
+              font-weight:600; color:#1a1a2e; font-size:18px;">汉字</div>
+            <button id="cnFontIncrease" style="width:38px; 
+              height:38px; border-radius:50%; border:none; 
+              background:#fff; color:#667eea; font-size:20px; 
+              font-weight:700; cursor:pointer; 
+              box-shadow:0 2px 8px rgba(102,126,234,0.15);">+</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- ================= 🎓 لوحة أدوات المعلم (تظهر بزر الـ topbar) ================= -->
+  <div id="teacherToolbar" class="teacher-toolbar" aria-label="Teacher Tools">
+    <div class="tt-panel" id="ttPanel">
+      <div class="tt-header">
+        <div class="tt-header-icon">🎓</div>
+        <div class="tt-header-text">
+          <span class="tt-title">Teacher Tools</span>
+          <span class="tt-zh"></span>
+        </div>
+        <button class="tt-close-btn" onclick="TeacherTools.togglePanel()" aria-label="Close">✕</button>
+      </div>
+
+      <!-- صف الأزرار السريعة (4 أزرار في صف واحد) -->
+      <div class="tt-quick-row">
+        <button class="tt-quick-btn" onclick="TeacherTools.togglePresenter()" data-tip="Presentation">
+          <span class="tt-q-ic">🔍</span>
+        </button>
+        <button class="tt-quick-btn" id="ttHideBtn" onclick="TeacherTools.toggleAnswers()" data-tip="Hide">
+          <span class="tt-q-ic" id="ttHideIcon">🙈</span>
+        </button>
+        <button class="tt-quick-btn" onclick="TeacherTools.openBoard()" data-tip="Whiteboard">
+          <span class="tt-q-ic">📝</span>
+        </button>
+        <button class="tt-quick-btn" onclick="TeacherTools.openFlashcards()" data-tip="Flashcards">
+          <span class="tt-q-ic">🃏</span>
+        </button>
+      </div>
+
+      <!-- العداد -->
+      <div class="tt-timer-block">
+        <div class="tt-timer-display" id="ttTimerDisplay">00:00</div>
+        <div class="tt-timer-row">
+          <button class="tt-time-btn" onclick="TeacherTools.startTimer(60)">1m</button>
+          <button class="tt-time-btn" onclick="TeacherTools.startTimer(180)">3m</button>
+          <button class="tt-time-btn" onclick="TeacherTools.startTimer(300)">5m</button>
+          <button class="tt-time-btn tt-stop" onclick="TeacherTools.stopTimer()" aria-label="Stop">⏹</button>
+        </div>
+      </div>
+
+      <!-- اختيار طالب عشوائي -->
+      <button class="tt-wide-btn" onclick="TeacherTools.randomStudent()">
+        <span class="tt-w-ic">🎯</span>
+        <span class="tt-w-lbl">Random Student<small></small></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= 🃏 Flashcards Modal ================= -->
+  <div id="flashcardsModal" class="tt-modal" onclick="if(event.target===this)TeacherTools.closeFlashcards()">
+    <div class="tt-modal-card flashcards-card">
+      <div class="fc-progress">
+        <span id="fcCurrent">1</span> / <span id="fcTotal">1</span>
+      </div>
+      <div class="flashcard" id="flashcardContent" onclick="TeacherTools.flipCard()">
+        <div class="fc-front">
+          <div class="fc-emoji" id="fcEmoji">🏠</div>
+          <div class="fc-en" id="fcEn"></div>
+          <div class="fc-hint">Tap to translate</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-zh" id="fcZh"></div>
+          <div class="fc-hint">Tap to go back</div>
+        </div>
+      </div>
+      <div class="fc-controls">
+        <button class="btn btn-ghost" onclick="TeacherTools.prevCard()">← Previous</button>
+        <button class="btn btn-primary" onclick="TeacherTools.speakCard()">🔊 Listen</button>
+        <button class="btn btn-ghost" onclick="TeacherTools.nextCard()">Next →</button>
+      </div>
+      <button class="tt-modal-close" onclick="TeacherTools.closeFlashcards()">✕</button>
+    </div>
+  </div>
+
+  <!-- ================= 📝 Whiteboard Modal ================= -->
+  <div id="boardModal" class="tt-modal" onclick="if(event.target===this)TeacherTools.closeBoard()">
+    <div class="tt-modal-card board-card" id="boardCardEl">
+      <div class="board-toolbar">
+        <button class="board-tool" onclick="TeacherTools.boardSetColor('#1a1a2e')" style="background:#1a1a2e"
+          aria-label="Black"></button>
+        <button class="board-tool" onclick="TeacherTools.boardSetColor('#ef4444')" style="background:#ef4444"
+          aria-label="Red"></button>
+        <button class="board-tool" onclick="TeacherTools.boardSetColor('#10b981')" style="background:#10b981"
+          aria-label="Green"></button>
+        <button class="board-tool" onclick="TeacherTools.boardSetColor('#667eea')" style="background:#667eea"
+          aria-label="Blue"></button>
+        <input type="range" id="boardSize" min="2" max="20" value="4" oninput="TeacherTools.boardSize=this.value">
+        <button class="btn btn-ghost" onclick="TeacherTools.boardClear()">🗑️ Clear</button>
+      </div>
+      <canvas id="boardCanvas" class="board-canvas"></canvas>
+      <button class="board-fullscreen-btn" id="boardFsBtn" onclick="TeacherTools.toggleBoardFullscreen()"
+        aria-label="Fullscreen · 全屏" title="Fullscreen · 全屏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+          stroke-linejoin="round" class="fs-expand">
+          <path d="M3 9V3h6" />
+          <path d="M21 9V3h-6" />
+          <path d="M3 15v6h6" />
+          <path d="M21 15v6h-6" />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+          stroke-linejoin="round" class="fs-collapse">
+          <path d="M9 3v6H3" />
+          <path d="M15 3v6h6" />
+          <path d="M9 21v-6H3" />
+          <path d="M15 21v-6h6" />
+        </svg>
+      </button>
+      <button class="tt-modal-close" onclick="TeacherTools.closeBoard()">✕</button>
+    </div>
+  </div>
+
+  <!-- ================= 🎯 Random Student Modal ================= -->
+  <!-- ===== مودال تلميحات المحادثة ===== -->
+  <div id="speakTipModal" class="tt-modal" onclick="if(event.target===this)closeSpeakTip()">
+    <div class="tt-modal-card" style="max-width:420px;text-align:center;padding:40px 30px">
+      <div class="tt-modal-en" style="font-size:28px;font-weight:700;margin-bottom:20px;color:var(--text)"></div>
+      <div class="tt-modal-zh" style="font-size:20px;color:var(--text-soft)"></div>
+      <button class="tt-modal-close" onclick="closeSpeakTip()" style="margin-top:30px">✕</button>
+    </div>
+  </div>
+
+  <div id="randomStudentModal" class="tt-modal"
+    onclick="if(event.target===this)document.getElementById('randomStudentModal').classList.remove('show')">
+    <div class="tt-modal-card rs-card">
+      <div class="rs-emoji">🎯</div>
+      <div class="rs-label">Selected Student · 选中的学生</div>
+      <div class="rs-number" id="rsNumber">?</div>
+      <button class="btn btn-primary" onclick="TeacherTools.spinRandom()">🎲 Pick Again</button>
+      <button class="tt-modal-close"
+        onclick="document.getElementById('randomStudentModal').classList.remove('show')">✕</button>
+    </div>
+  </div>
+
+  <script src="data/lesson.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- ════════════════════════════════════════════════════════════════ -->
+  <!--  Signature System — 7 layers                                  -->
+  <!-- ════════════════════════════════════════════════════════════════ -->
+
+  <!-- ── 2 — Hidden Signature (HTML comment) ─────────────────────── -->
+  <!--
+    ╔══════════════════════════════════════════════╗
+    ║  This lesson was created by Ahmed Abdo      ║
+    ║  © 2026  All Rights Reserved               ║
+    ║  Unauthorized copying or distribution        ║
+    ║  of this code is prohibited.                 ║
+    ╚══════════════════════════════════════════════╝
+  -->
+
+  <!-- ── 7 — Watermark CSS ───────────────────────────────────────── -->
+  <style>
+    .sig-watermark {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .sig-watermark::after {
+      content: "Ahmed Abdo";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(60px, 10vw, 140px);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      color: rgba(102,126,234,0.06);
+      white-space: nowrap;
+      letter-spacing: 12px;
+      user-select: none;
+      transform: rotate(-20deg);
+    }
+    @media print { .sig-watermark { opacity: 1 !important; } }
+  </style>
+  <div class="sig-watermark" id="sigWatermark" aria-hidden="true"></div>
+
+  <!-- ── 1 — Visible Footer ──────────────────────────────────────── -->
+  <footer class="project-signature" id="sigFooter">
+    Developed by <strong>Ahmed Abdo</strong> · 2026
+  </footer>
+
+
+  <!-- ── 4+5+6 — Console, Smart JS, DOM Protection ──────────────── -->
+  <script>
+    (function() {
+      'use strict';
+
+      var NAME = 'Ahmed Abdo';
+      var YEAR = new Date().getFullYear();
+      var TAG  = 'sigFooter';
+
+      /* ── 5 — Smart JS Integrity Check ──────────────────────── */
+      /* ── 5b — Data Integrity Check ──────────────────────────── */
+      var _dataSig = (function checkData(){
+        try {
+          if (typeof LESSON_DATA !== 'undefined' && LESSON_DATA.__owner__ && LESSON_DATA.__owner__.name === 'Ahmed Abdo') {
+            var s = document.getElementById('sigFooter');
+            if (s && s.innerHTML.indexOf('Ahmed Abdo') === -1) {
+              s.innerHTML = 'Developed by <strong>Ahmed Abdo</strong> · ' + new Date().getFullYear();
+            }
+          }
+        } catch(e){}
+        return true;
+      });
+      setInterval(_dataSig, 5000);
+      document.addEventListener('DOMContentLoaded', _dataSig);
+      var _sig = (function verify(){
+        var el = document.getElementById(TAG);
+        if (!el || el.innerHTML.indexOf(NAME) === -1) {
+          console.warn('⚠️ Signature removed — restoring…');
+          var s = document.getElementById(TAG);
+          if (!s) {
+            s = document.createElement('footer');
+            s.className = 'project-signature';
+            s.id = TAG;
+            document.body.appendChild(s);
+          }
+          s.innerHTML = 'Developed by <strong>' + NAME + '</strong> · ' + YEAR;
+        }
+        return true;
+      });
+      setInterval(_sig, 3000);
+      document.addEventListener('DOMContentLoaded', _sig);
+
+      /* ── 6 — DOM Protection ──────────────────────────────── */
+      var _observer = new MutationObserver(function(muts) {
+        muts.forEach(function(m) {
+          m.removedNodes.forEach(function(n) {
+            if (n.id === TAG || (n.nodeType === 1 && n.querySelector && n.querySelector('#' + TAG))) {
+              var clone = document.createElement('footer');
+              clone.className = 'project-signature';
+              clone.id = TAG;
+              clone.innerHTML = 'Developed by <strong>' + NAME + '</strong> · ' + YEAR;
+              document.body.appendChild(clone);
+            }
+            if (n.nodeType === 1 && n.querySelector) {
+              var wm = n.querySelector('#sigWatermark');
+              if (wm) {
+                var div = document.createElement('div');
+                div.className = 'sig-watermark';
+                div.id = 'sigWatermark';
+                div.setAttribute('aria-hidden','true');
+                document.body.appendChild(div);
+              }
+            }
+          });
+        });
+      });
+      _observer.observe(document.body, { childList: true, subtree: true });
+
+    })();
+  </script>
+
+</body>
+
+</html>
