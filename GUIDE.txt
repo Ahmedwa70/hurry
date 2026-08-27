@@ -1,0 +1,76 @@
+==================================================
+            AI LESSON WORKFLOW GUIDE
+==================================================
+
+This project supports AI-generated lessons.
+
+To create a new lesson, follow these steps carefully:
+
+--------------------------------------------------
+1. Prepare the required files
+--------------------------------------------------
+
+You must provide the AI with:
+
+• The new lesson image
+• lesson.js
+• LESSON_SCHEMA.md
+
+--------------------------------------------------
+2. Upload the files to the AI
+--------------------------------------------------
+
+Upload all required files together:
+
+✓ Lesson image
+✓ lesson.js
+✓ LESSON_SCHEMA.md
+
+--------------------------------------------------
+3. Send this message to the AI
+--------------------------------------------------
+
+Type the following message:
+
+follow the schema
+
+Then press Send.
+
+--------------------------------------------------
+4. Wait for the AI to generate the lesson
+--------------------------------------------------
+
+The AI will generate a new lesson.js file
+based on the uploaded lesson image and schema.
+
+--------------------------------------------------
+5. Replace the old lesson.js file
+--------------------------------------------------
+
+After generation is complete:
+
+• Download the new generated file
+• Make sure the file name is:
+
+lesson.js
+
+• Replace the old lesson.js file
+with the new one inside the project
+
+--------------------------------------------------
+IMPORTANT
+--------------------------------------------------
+
+✓ The generated file name MUST remain:
+
+lesson.js
+
+✓ Do not rename the file
+
+✓ Keep LESSON_SCHEMA.md unchanged
+
+✓ Follow the schema structure exactly
+
+==================================================
+                    AHMED ABDO
+==================================================
